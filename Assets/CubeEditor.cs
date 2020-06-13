@@ -44,12 +44,9 @@ public class CubeEditor : MonoBehaviour
     {
         TextMesh textMesh;
         textMesh = GetComponentInChildren<TextMesh>();
-        textMesh.text = (waypoint.GetGridPos().x * waypoint.GetGridSize()) / gridSize + 
+        textMesh.text = (waypoint.GetGridPos().x)  + 
                         "," + 
-                        (waypoint.GetGridPos().y * waypoint.GetGridSize()) / gridSize;  
+                        (waypoint.GetGridPos().y);  
         gameObject.name = textMesh.text;
-    }
-     void SetColorsInEditor(){
-        
     }
 }

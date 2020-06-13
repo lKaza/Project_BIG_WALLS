@@ -20,78 +20,78 @@ public class PathFinder : MonoBehaviour
             Vector2Int.right
     };
 
-    bool first = true;
-    // Start is called before the first frame update
-    void Start()
-    {
+    Waypoint searchCenter;
+    List<Waypoint> path = new List<Waypoint>(); 
 
+    // Start is called before the first frame update
+
+    public List<Waypoint> getPath(){
         LoadBlocks();
         ColorFirstAndLast();
-        //ExploreNeighbours();
-        PathFind();
+        BreadthFirstSearch();
+        CreatePath();
+        return path;
     }
 
-    private void PathFind()
+    private void CreatePath()
     {
-        
+        path.Add(endPoint);
+        Waypoint previous = endPoint.exploredFrom;
+        while(previous != startPoint){
+            path.Add(previous);
+            previous = previous.exploredFrom;
+        }
+        path.Add(previous);
+        path.Reverse();
+    }
+
+    private void BreadthFirstSearch()
+    {
         queue.Enqueue(startPoint);
         while (queue.Count > 0 && isRunning)
         {
-            var searchCenter = queue.Dequeue();        
-            print("Searching from " + searchCenter); //todo remove log
-            StopIfSame(searchCenter);
-            ExploreNeighbours(searchCenter);
+            searchCenter = queue.Dequeue();        
+            StopIfSame();
+            ExploreNeighbours();
             searchCenter.isExplored = true;
-        }
-      
-
+        }      
     }
 
-    private void StopIfSame(Waypoint searchCenter)
+    private void StopIfSame()
     {
         if (searchCenter == endPoint)
         {
-            print("Start and End are the same"); //todo remove log
+            searchCenter.SetTopColor(Color.yellow);
             isRunning = false;
         }
-       
     }
 
-    private void ExploreNeighbours(Waypoint from)
-    {
-        print(isRunning);
-        if(!isRunning){
+    private void ExploreNeighbours()
+    {  
+        if(!isRunning)
+        {
             return;
         }
-        {
-            print("Searching...");
-            foreach(Vector2Int direction in directions) 
-            {         
-                Vector2Int neighbourCoordinates = from.GetGridPos() + direction;
-                print("Exploring and Painting "+(neighbourCoordinates));
-                try
-                {
+            {        
+                foreach(Vector2Int direction in directions) 
+                {         
+                    Vector2Int neighbourCoordinates = searchCenter.GetGridPos() + direction;
+                   if(grid.ContainsKey(neighbourCoordinates)){
                     QueueNewNeighbours(neighbourCoordinates);
+                   }                                          
                 }
-                catch
-                {
-                    print("Some blocks cant be found");
-                }          
             }
-        }
     }
 
     private void QueueNewNeighbours(Vector2Int neighbourCoordinates)
     {
         Waypoint neighbour = grid[neighbourCoordinates];
-        if(neighbour.isExplored == false){
-            neighbour.SetTopColor(Color.blue);
+        if(neighbour.isExplored || queue.Contains(neighbour)){
+            return;
+        }else{                     
             queue.Enqueue(neighbour);
-            print("Queue " + neighbour);
-        }else{
-            
-        }
-       
+            neighbour.exploredFrom = searchCenter;     
+        }   
     }
 
     private void ColorFirstAndLast()
@@ -102,26 +102,15 @@ public class PathFinder : MonoBehaviour
 
     private void LoadBlocks()
     {
-        var waypoints = FindObjectsOfType<Waypoint>();
-        
+        var waypoints = FindObjectsOfType<Waypoint>();     
         foreach(Waypoint waypoint in waypoints)
         {
             if(grid.ContainsKey(waypoint.GetGridPos()) )
             {
                 Debug.LogWarning("Skipping overlap "+waypoint);
-            }else{
-                waypoint.SetTopColor(Color.black);
+            }else{            
                 grid.Add(waypoint.GetGridPos() ,waypoint);
             } 
-        }
-       
-       
-    }
-   
-   
-    // Update is called once per frame
-    void Update()
-    {
-        
+        }      
     }
 }
