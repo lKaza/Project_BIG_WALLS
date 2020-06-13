@@ -4,22 +4,52 @@ using UnityEngine;
 
 [ExecuteInEditMode]
 [SelectionBase]
+[RequireComponent(typeof(Waypoint))]
+
 public class CubeEditor : MonoBehaviour
 {
-    TextMesh textMesh;
+    [SerializeField] Waypoint startPoint;
+    [SerializeField] Waypoint endPoint;
+    PathFinder path;
+    Waypoint waypoint; 
+    int gridSize;
 
-    void Start(){
-        textMesh = GetComponentInChildren<TextMesh>();       
+
+    private void Awake() {
+        waypoint = GetComponent<Waypoint>();
     }
 
-    [Range(1f, 20f)] [SerializeField] float gridSize=10f;
+    void Start(){
+      
+        gridSize = waypoint.GetGridSize();   
+    }
+
+
     void Update()
     {
+        GetGridPos();
+        NameBlock();
+       
+    }
+
+    private void GetGridPos()
+    {
+       
+        transform.position = new Vector3(waypoint.GetGridPos().x * waypoint.GetGridSize(), 
+                                        0f, 
+                                        waypoint.GetGridPos().y * waypoint.GetGridSize());
+    }
+
+    private void NameBlock()
+    {
+        TextMesh textMesh;
+        textMesh = GetComponentInChildren<TextMesh>();
+        textMesh.text = (waypoint.GetGridPos().x * waypoint.GetGridSize()) / gridSize + 
+                        "," + 
+                        (waypoint.GetGridPos().y * waypoint.GetGridSize()) / gridSize;  
+        gameObject.name = textMesh.text;
+    }
+     void SetColorsInEditor(){
         
-        Vector3 snapPos;
-        snapPos.x = Mathf.Round(transform.position.x/gridSize)*gridSize;
-        snapPos.z = Mathf.Round(transform.position.z/gridSize)*gridSize;
-        textMesh.text = snapPos.x/gridSize + "," +snapPos.z/gridSize;
-        transform.position = new Vector3 (snapPos.x,0f,snapPos.z);
     }
 }
