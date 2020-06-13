@@ -5,16 +5,21 @@ using UnityEngine;
 
 public class PathFinder : MonoBehaviour
 {
+    
     Dictionary<Vector2Int,Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
     [SerializeField] Waypoint startPoint;
     [SerializeField] Waypoint endPoint;
+
+    Queue<Waypoint> queue = new Queue<Waypoint>();
+    bool isRunning = true;
+
     Vector2Int[] directions = {
             Vector2Int.up,
             Vector2Int.down,
             Vector2Int.left,
             Vector2Int.right
     };
-    [SerializeField] Vector2Int Explorer;
+
     bool first = true;
     // Start is called before the first frame update
     void Start()
@@ -22,23 +27,71 @@ public class PathFinder : MonoBehaviour
 
         LoadBlocks();
         ColorFirstAndLast();
-        ExploreNeighbours(Explorer);
+        //ExploreNeighbours();
+        PathFind();
     }
 
-    private void ExploreNeighbours(Vector2Int position)
+    private void PathFind()
     {
-        print("Using " + startPoint.GetGridPos() + " as center");
-        foreach(Vector2Int direction in directions) {         
-            Vector2Int explorationCoordinates = startPoint.GetGridPos() + direction;
-            print("Exploring and Painting "+(explorationCoordinates));
-            try{
-                grid[explorationCoordinates].SetTopColor(Color.blue);
-            }catch{
-                print("Some blocks cant be found");
-            }
-            
-
+        
+        queue.Enqueue(startPoint);
+        while (queue.Count > 0 && isRunning)
+        {
+            var searchCenter = queue.Dequeue();        
+            print("Searching from " + searchCenter); //todo remove log
+            StopIfSame(searchCenter);
+            ExploreNeighbours(searchCenter);
+            searchCenter.isExplored = true;
         }
+      
+
+    }
+
+    private void StopIfSame(Waypoint searchCenter)
+    {
+        if (searchCenter == endPoint)
+        {
+            print("Start and End are the same"); //todo remove log
+            isRunning = false;
+        }
+       
+    }
+
+    private void ExploreNeighbours(Waypoint from)
+    {
+        print(isRunning);
+        if(!isRunning){
+            return;
+        }
+        {
+            print("Searching...");
+            foreach(Vector2Int direction in directions) 
+            {         
+                Vector2Int neighbourCoordinates = from.GetGridPos() + direction;
+                print("Exploring and Painting "+(neighbourCoordinates));
+                try
+                {
+                    QueueNewNeighbours(neighbourCoordinates);
+                }
+                catch
+                {
+                    print("Some blocks cant be found");
+                }          
+            }
+        }
+    }
+
+    private void QueueNewNeighbours(Vector2Int neighbourCoordinates)
+    {
+        Waypoint neighbour = grid[neighbourCoordinates];
+        if(neighbour.isExplored == false){
+            neighbour.SetTopColor(Color.blue);
+            queue.Enqueue(neighbour);
+            print("Queue " + neighbour);
+        }else{
+            
+        }
+       
     }
 
     private void ColorFirstAndLast()
