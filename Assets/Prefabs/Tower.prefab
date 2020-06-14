@@ -47,6 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToPan: {fileID: 5044133053407468236}
   targetEnemy: {fileID: 0}
+  harpoon: {fileID: 146733095579123471}
+  AttackRange: 50
 --- !u!1 &5412595988296969657
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,7 +164,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -912,7 +914,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 1
       minScalar: 10
       maxCurve:
         serializedVersion: 2

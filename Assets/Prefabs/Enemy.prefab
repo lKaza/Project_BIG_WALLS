@@ -254,6 +254,11 @@ PrefabInstance:
       propertyPath: ColorModule.gradient.maxGradient.ctime6
       value: 65535
       objectReference: {fileID: 0}
+    - target: {fileID: 2645086202434859909, guid: ebade9907f2524e4bb698bf54636adb5,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2645086202449016517, guid: ebade9907f2524e4bb698bf54636adb5,
         type: 3}
       propertyPath: m_LocalPosition.z

@@ -26,11 +26,20 @@ public class PathFinder : MonoBehaviour
     // Start is called before the first frame update
 
     public List<Waypoint> getPath(){
+        if(path.Count == 0)
+        {
+            CalculatePath();
+        }
+        return path;
+        
+    }
+
+    private void CalculatePath()
+    {
         LoadBlocks();
         ColorFirstAndLast();
         BreadthFirstSearch();
         CreatePath();
-        return path;
     }
 
     private void CreatePath()
