@@ -10,7 +10,7 @@ public class Waypoint : MonoBehaviour
     public bool isPleaceable = true;
     public bool isExplored = false;
     public Waypoint exploredFrom;
-    [SerializeField] Tower towerPrefab;
+   
     
     
     
@@ -54,7 +54,7 @@ public class Waypoint : MonoBehaviour
     void OnMouseOver()
     {
         if(Input.GetMouseButtonDown(0) && isPleaceable){
-            Tower newTower = Instantiate(towerPrefab, gameObject.transform.position, Quaternion.identity);
+            FindObjectOfType<TowerFactory>().AddTower(this);
             isPleaceable = false;
         }else if(Input.GetMouseButtonDown(0)){
             print("impossibur");
