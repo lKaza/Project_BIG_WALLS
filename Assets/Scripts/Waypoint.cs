@@ -47,4 +47,10 @@ public class Waypoint : MonoBehaviour
     public int GetGridSize(){
         return gridSize;
     }
+    void OnMouseOver()
+    {
+        //If your mouse hovers over the GameObject with the script attached, output this message
+        Debug.Log("Este bloque es el " + gameObject.name);
+    }
+
 }

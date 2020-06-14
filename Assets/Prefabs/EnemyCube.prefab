@@ -79,7 +79,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1326370604}
-  m_Text: -1,0
+  m_Text: 0,0
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -199,6 +199,7 @@ GameObject:
   - component: {fileID: 1069110660619467762}
   - component: {fileID: 8000567153083861390}
   - component: {fileID: 1012145764142423096}
+  - component: {fileID: 2794448914299465613}
   m_Layer: 0
   m_Name: EnemyCube
   m_TagString: Untagged
@@ -249,6 +250,19 @@ MonoBehaviour:
   isExplored: 0
   exploredFrom: {fileID: 0}
   exploredColor: {r: 0, g: 1, b: 1, a: 1}
+--- !u!65 &2794448914299465613
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8295468486504508601}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: -5, z: 0}
 --- !u!1001 &4368736601559375307
 PrefabInstance:
   m_ObjectHideFlags: 0
