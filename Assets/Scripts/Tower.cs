@@ -24,7 +24,7 @@ public class Tower : MonoBehaviour
             FireAtEnemy();
         }else{
             Shoot(false);
-            print("searching");
+            
         }
         
 

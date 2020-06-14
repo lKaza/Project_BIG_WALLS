@@ -9,6 +9,7 @@ public class PathFinder : MonoBehaviour
     Dictionary<Vector2Int,Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
     [SerializeField] Waypoint startPoint;
     [SerializeField] Waypoint endPoint;
+    
 
     Queue<Waypoint> queue = new Queue<Waypoint>();
     bool isRunning = true;
@@ -44,14 +45,21 @@ public class PathFinder : MonoBehaviour
 
     private void CreatePath()
     {
-        path.Add(endPoint);
+        SetAsPath(endPoint);
         Waypoint previous = endPoint.exploredFrom;
-        while(previous != startPoint){
-            path.Add(previous);
+        while (previous != startPoint)
+        {
+            SetAsPath(previous);
             previous = previous.exploredFrom;
         }
-        path.Add(previous);
+        SetAsPath(previous);
         path.Reverse();
+    }
+
+    private void SetAsPath(Waypoint waypoint)
+    {
+        path.Add(waypoint);
+        waypoint.isPleaceable = false;
     }
 
     private void BreadthFirstSearch()

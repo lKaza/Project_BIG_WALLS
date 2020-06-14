@@ -7,14 +7,18 @@ public class Waypoint : MonoBehaviour
 {
     const int gridSize = 10;
     Vector2Int gridPosInt;
+    public bool isPleaceable = true;
     public bool isExplored = false;
     public Waypoint exploredFrom;
+    [SerializeField] Tower towerPrefab;
+    
+    
     
     [SerializeField] Color exploredColor = Color.cyan;
     // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
@@ -49,8 +53,13 @@ public class Waypoint : MonoBehaviour
     }
     void OnMouseOver()
     {
-        //If your mouse hovers over the GameObject with the script attached, output this message
-        Debug.Log("Este bloque es el " + gameObject.name);
+        if(Input.GetMouseButtonDown(0) && isPleaceable){
+            Tower newTower = Instantiate(towerPrefab, gameObject.transform.position, Quaternion.identity);
+            isPleaceable = false;
+        }else if(Input.GetMouseButtonDown(0)){
+            print("impossibur");
+        }
+       
     }
 
 }
