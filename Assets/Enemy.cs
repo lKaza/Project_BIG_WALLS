@@ -7,24 +7,15 @@ public class Enemy : MonoBehaviour
     [SerializeField] int HP = 2000;
     [SerializeField] Collider myCollider;
     public bool isAlive = true;
+    public GameObject enemyPrefab;
     
-    
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-      
-        
-    }
 
     int getHP()
     {
         return HP;
     }
+
     public void TakeDMG(int dmg)
     {
         HP -= dmg;
