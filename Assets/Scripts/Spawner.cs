@@ -6,15 +6,18 @@ using TMPro;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] Transform parent;
+
     public GameObject enemyPrefab;
     [SerializeField] float secondsBetweenSpawns = 3f;
     [SerializeField] TextMeshProUGUI enemyText;
+    [SerializeField] AudioClip myAudio;
     int enemiesQuantity;
+    AudioSource myAudioSource;
     
     // Start is called before the first frame update
    void Start()
     {
-        
+    
        StartCoroutine(WaitAndSpawnEnemies());
     }
 
@@ -31,11 +34,12 @@ public class Spawner : MonoBehaviour
     {
         
         while(true){ //forever
-        
+            
         yield return new WaitForSeconds(secondsBetweenSpawns);
         GameObject enemyClone = Instantiate(enemyPrefab, new Vector3(0f, 0f, 10f), Quaternion.identity);
         enemyClone.transform.parent = parent;
         enemiesQuantity++;
+            GetComponent<AudioSource>().PlayOneShot(myAudio);
         
         }
     }
