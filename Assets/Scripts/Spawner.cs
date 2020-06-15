@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Spawner : MonoBehaviour
 {
@@ -37,8 +38,12 @@ public class Spawner : MonoBehaviour
             
         yield return new WaitForSeconds(secondsBetweenSpawns);
         GameObject enemyClone = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
-        enemyClone.transform.parent = parent;
+        enemyClone.transform.SetParent(parent);
         enemiesQuantity++;
+        if(enemiesQuantity== 120){
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+
             GetComponent<AudioSource>().PlayOneShot(myAudio);
         
         }

@@ -39,10 +39,13 @@ public class EnemyMovement : MonoBehaviour
         float step = speed * Time.deltaTime;
         if(i>=ourpath.Count){
             Vector3 target = ourpath[ourpath.Count-1].transform.position;
+            Vector3 up = new Vector3(0,3f,0);
+            target = target+up;
             ReachGoal();
         }else{
             Vector3 target = ourpath[i].transform.position;
-
+            Vector3 up = new Vector3(0, 3f, 0);
+            target = target + up;
             Vector3 lTargetDir = target - transform.position;   
             transform.position = Vector3.MoveTowards(transform.position, target, step);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lTargetDir), Time.time * speed);

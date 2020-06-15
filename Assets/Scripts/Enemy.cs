@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] int HP = 200;
+    [SerializeField] int maxHP = 200;
     [SerializeField] Collider myCollider;
     [SerializeField] ParticleSystem dmgFX;
     [SerializeField] ParticleSystem deathFX;   
     [SerializeField] AudioClip dmgSFX;
     [SerializeField] AudioClip deathSFX;
     Vector3 cameraPos;
+    private int currentHP;
     //[SerializeField] AudioClip enemyDeathSFX;
 
     AudioSource myAudioSource;
@@ -18,23 +20,28 @@ public class Enemy : MonoBehaviour
     public bool isAlive = true;
     public GameObject enemyPrefab;
     
+    public event Action<float> OnHealthPcChanged = delegate {};
+    
     
     private void Start() {
+        currentHP = maxHP;
         cameraPos = FindObjectOfType<Camera>().transform.position;
       myAudioSource = GetComponent<AudioSource>();
     }
 
     int getHP()
     {
-        return HP;
+        return maxHP;
     }
 
     public void TakeDMG(int dmg)
     {
+        currentHP -= dmg;
         myAudioSource.PlayOneShot(dmgSFX);
-        HP -= dmg;
-        
-        if (HP <= 0)
+       
+        float currentHPPc = (float)currentHP/(float) maxHP;
+        OnHealthPcChanged(currentHPPc);
+        if (currentHP <= 0)
         {
             Death();
         }
