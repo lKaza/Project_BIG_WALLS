@@ -36,7 +36,7 @@ public class Spawner : MonoBehaviour
         while(true){ //forever
             
         yield return new WaitForSeconds(secondsBetweenSpawns);
-        GameObject enemyClone = Instantiate(enemyPrefab, new Vector3(0f, 0f, 10f), Quaternion.identity);
+        GameObject enemyClone = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
         enemyClone.transform.parent = parent;
         enemiesQuantity++;
             GetComponent<AudioSource>().PlayOneShot(myAudio);

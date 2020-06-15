@@ -4,25 +4,21 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    [SerializeField] float speed = 0.5f;
+    [SerializeField] float speed = 10f;
     [SerializeField] ParticleSystem goalVFX;
+    
+    public List<Waypoint> ourpath;
+    int i = 1;
 
     // Start is called before the first frame update
     void Start()
     {
         PathFinder pathfinder = FindObjectOfType<PathFinder>();
-        StartCoroutine(FollowPath(pathfinder.getPath()));
+        ourpath = pathfinder.getPath();
+       
     }
 
-    IEnumerator FollowPath(List<Waypoint> path)
-    {
-        foreach (Waypoint waypoint in path)
-        {
-            transform.position = waypoint.transform.position;
-            yield return new WaitForSeconds(speed);
-        }
-        ReachGoal();
-    }
+    
 
     private void ReachGoal()
     {
@@ -34,7 +30,36 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        moveSmoothly();
     }
 
+    private void moveSmoothly()
+    {
+        
+        float step = speed * Time.deltaTime;
+        if(i>=ourpath.Count){
+            Vector3 target = ourpath[ourpath.Count-1].transform.position;
+            ReachGoal();
+        }else{
+            Vector3 target = ourpath[i].transform.position;
+
+            Vector3 lTargetDir = target - transform.position;   
+            transform.position = Vector3.MoveTowards(transform.position, target, step);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lTargetDir), Time.time * speed);
+
+        
+    
+        float distance = Vector3.Distance(transform.position, target);
+        if(distance==0 && i<ourpath.Count){
+           
+            i++;
+            
+        }
+        }
+        
+            
+        
+        
+        
+}
 }

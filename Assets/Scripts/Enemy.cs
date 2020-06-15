@@ -46,7 +46,9 @@ public class Enemy : MonoBehaviour
         //GetComponent<AudioSource>().PlayOneShot(enemyDeathSFX);
         deathFX = Instantiate(deathFX, transform.position, Quaternion.identity);
         deathFX.Play();
-        AudioSource.PlayClipAtPoint(deathSFX,cameraPos,10);
+        var ccamera = new Vector3(0,0,0);
+        ccamera = ccamera-cameraPos;
+        AudioSource.PlayClipAtPoint(deathSFX,ccamera,10);
         
         
         Destroy(gameObject);

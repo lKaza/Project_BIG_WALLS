@@ -110,9 +110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f77e5aa40a02154c8cf45b2c4a797aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.25
+  speed: 20
   goalVFX: {fileID: 3800197562452890448, guid: 4f093299a4dd37440b8f09b9d9ad233d, type: 3}
-  velocity: 0.5
+  ourpath: []
 --- !u!114 &7476011167078937572
 MonoBehaviour:
   m_ObjectHideFlags: 0
