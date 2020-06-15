@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] int HP = 2000;
+    [SerializeField] int HP = 200;
     [SerializeField] Collider myCollider;
     [SerializeField] ParticleSystem dmgFX;
     [SerializeField] ParticleSystem deathFX;

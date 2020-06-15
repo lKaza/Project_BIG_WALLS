@@ -55,7 +55,7 @@ public class Waypoint : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0) && isPleaceable){
             FindObjectOfType<TowerFactory>().AddTower(this);
-            isPleaceable = false;
+            
         }else if(Input.GetMouseButtonDown(0)){
             print("impossibur");
         }
