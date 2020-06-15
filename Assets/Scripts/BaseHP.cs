@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BaseHP : MonoBehaviour
 {
@@ -34,6 +35,9 @@ public class BaseHP : MonoBehaviour
     {
         GetComponent<AudioSource>().PlayOneShot(takedmg);
         hpBase -= 10;
+        if(hpBase==0){
+            SceneManager.LoadScene(1);
+        }
         changeHPText(10);
     }
 }

@@ -9845,7 +9845,7 @@ GameObject:
   - component: {fileID: 3706245043372893713}
   - component: {fileID: 7034234031745434848}
   m_Layer: 0
-  m_Name: Enemy2
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9964,7 +9964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1336ad0be8d63164682e936c712207e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 1600
+  maxHP: 1760
   myCollider: {fileID: 0}
   dmgFX: {fileID: 942666819207334125}
   deathFX: {fileID: 8117527083184222735, guid: 04841ab6a2a320445bf412e2bb0d483b, type: 3}
